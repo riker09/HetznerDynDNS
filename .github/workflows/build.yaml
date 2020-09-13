@@ -17,6 +17,7 @@ jobs:
 
     env:
       GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+      IMAGE_NAME: hetzner-dyndns
 
     steps:
     - name: Checkout
@@ -29,10 +30,8 @@ jobs:
         echo "::set-output name=sref::$(echo ${GITHUB_REF#refs/heads/} | tr / -)"
 
     - name: Build
-      uses: whoan/docker-build-with-cache-action@v5
-      with:
-        image_name: hetzner-dyndns
-        image_tag: latest,prod-${{ steps.slug.outputs.sha7 }}
-        username: riker09
-        registry: ghcr.io
-        password: "${{ secrets.GHCR_TOKEN }}"
+      run: |
+        echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+        docker pull ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:latest
+        docker build . --tag ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:${{ steps.slug.outputs.sha7}} --cache-from ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:latest
+        docker push ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}

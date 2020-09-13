@@ -30,8 +30,10 @@ jobs:
         echo "::set-output name=sref::$(echo ${GITHUB_REF#refs/heads/} | tr / -)"
 
     - name: Build
+      env:
+        IMAGE: ghcr.io/${{ env.GITHUB_ACTOR }}/${{ env.IMAGE_NAME }}
       run: |
         echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
         docker pull ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:latest
-        docker build . --tag ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:${{ steps.slug.outputs.sha7}} --cache-from ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:latest
+        docker build . --tag ${IMAGE}:${{ steps.slug.outputs.sha7}} --tag ${IMAGE}:latest --cache-from ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:latest
         docker push ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}

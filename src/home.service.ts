@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { FritzBoxDnyDnsQueryParams } from './fritz-box-dyndns-query-params';
+import { FritzBoxDyndnsQueryParams } from './interfaces';
 import { RecordService } from './record.service';
-import { RecordType } from './record-type';
+import { RecordType } from './interfaces/record-type';
 import { ConfigService } from '@nestjs/config';
 import { HOMEZONE_SUBDOMAIN_NAME_ENV_NAME } from './constants';
 
@@ -16,7 +16,7 @@ export class HomeService {
     this.homeZoneName = this.configService.get(HOMEZONE_SUBDOMAIN_NAME_ENV_NAME, 'home');
   }
 
-  public async UpdateHomeZone(dto: FritzBoxDnyDnsQueryParams) {
+  public async UpdateHomeZone(params: FritzBoxDyndnsQueryParams) {
     const result = [];
 
     // 1. Get all records
@@ -31,11 +31,11 @@ export class HomeService {
     }
 
     // 3. Update records with new IP value
-    recordA.value = dto.ipv4;
+    recordA.value = params.ipv4;
     result.push(this.recordService.UpdateRecord(recordA));
 
     if (recordAAAA) {
-      recordAAAA.value = dto.ipv6;
+      recordAAAA.value = params.ipv6;
       result.push(this.recordService.UpdateRecord(recordAAAA));
     }
 

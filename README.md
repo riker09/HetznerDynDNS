@@ -27,6 +27,10 @@ Like DnyDns, but without the middleman.
 
 * Create new A/AAAA record when not found
 * Support multiple records (home, dyn, ...)
+* Add docker-compose.yml example
+* Add HealthCheck to Dockerfile
+* Logging, Reporting
+* Build image with GitHub Actions
 
 ## Usage
 

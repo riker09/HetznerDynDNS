@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  api:
+    image: ghcr.io/riker09/hetzner-dyndns
+    ports:
+    - "3000:3000"
+    env_file:
+    - ./.env
+    # environment:
+    #   HETZNER_DNS_API_TOKEN: insert-your-token-value-here

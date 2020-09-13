@@ -1,4 +1,4 @@
-export interface HetznerResponsePaginated<T> {
+export interface HetznerPaginatedResponse<T> {
   records: T[],
   meta: {
     pagination: {

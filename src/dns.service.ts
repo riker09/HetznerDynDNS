@@ -1,8 +1,8 @@
 import { Injectable, HttpService } from '@nestjs/common';
-import { IRecordDto, IRecord } from './irecord.interface';
+import { RecordDto, Record } from './interfaces';
 import { Observable } from 'rxjs';
 import { AxiosResponse } from 'axios';
-import { HetznerResponsePaginated } from './i-hetzner-response-paginated';
+import { HetznerPaginatedResponse } from './interfaces/hetzner-paginated-response';
 import { ConfigService } from '@nestjs/config';
 import { HETZNER_DNS_API_BASEURL_ENV_NAME, HETZNER_DNS_API_TOKEN_ENV_NAME } from './constants';
 
@@ -26,7 +26,7 @@ export class DnsService {
     }
   }
 
-  public GetRecords(path: string): Observable<AxiosResponse<HetznerResponsePaginated<IRecord>>> {
+  public GetRecords(path: string): Observable<AxiosResponse<HetznerPaginatedResponse<Record>>> {
     const url = `${this.baseurl}${path.replace(/^\//, '')}`;
     return this.httpService.get(url, {
       headers: {
@@ -35,7 +35,7 @@ export class DnsService {
     });
   }
 
-  public UpdateRecord(path: string, record: IRecordDto): Observable<AxiosResponse<IRecord>> {
+  public UpdateRecord(path: string, record: RecordDto): Observable<AxiosResponse<Record>> {
     const url = `${this.baseurl}${path.replace(/^\//, '')}`;
     return this.httpService.put(url, record, {
       headers: {

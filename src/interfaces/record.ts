@@ -1,6 +1,6 @@
 import { RecordType } from './record-type';
 
-export interface IRecordDto {
+export interface RecordDto {
   name: string;
   ttl: number;
   type: RecordType;
@@ -8,7 +8,7 @@ export interface IRecordDto {
   zone_id: string;
 }
 
-export interface IRecord extends IRecordDto {
+export interface Record extends RecordDto {
   id: string;
   created: string;
   modified: string;

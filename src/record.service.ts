@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { IRecordService } from './irecord-service.interface';
-import { IRecord } from './irecord.interface';
+import { Record } from './interfaces';
 import { DnsService } from './dns.service';
 
 @Injectable()
-export class RecordService implements IRecordService {
-  private records: IRecord[] = [];
+export class RecordService {
+  private records: Record[] = [];
 
   constructor(private dnsService: DnsService) { }
 
-  public async GetAllRecords(): Promise<IRecord[]> {
+  public async GetAllRecords(): Promise<Record[]> {
     if (this.records.length < 1) {
       const result = await this
         .dnsService
@@ -21,8 +20,8 @@ export class RecordService implements IRecordService {
     return this.records;
   }
 
-  public UpdateRecord(record: IRecord): IRecord {
-    var result: IRecord = null;
+  public UpdateRecord(record: Record): Record {
+    var result: Record = null;
 
     this
       .dnsService

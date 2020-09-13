@@ -1,18 +1,15 @@
 # Hetzner DynDNS
 
-*tl;dr* Update a DNS record via the Hetzner DNS API.
+*tl;dr* Update a DNS record via the Hetzner DNS API to create a self-hosted DynDNS solution.
 
 ## Requirements
 
+* A domain
 * Hetzner DNS Console
 * API Token
 * A/AAAA record
 
 If you don't have one, go and create a Hetzner account at https://accounts.hetzner.com/. You'll need to move your DNS zone file to Hetzner for obvious reasons. Generate an API token to access the [DNS API](https://dns.hetzner.com/settings/api-token).
-
-## Intentional use case
-
-Like DnyDns, but without the middleman.
 
 ## Environment Variables
 
@@ -22,13 +19,14 @@ Like DnyDns, but without the middleman.
 | HETZNER_DNS_API_TOKEN | |
 | HOMEZONE_SUBDOMAIN_NAME | `home` |
 
+These environment variables are used by the tool. Provide them as you see fit, eg. via `.env` file.
+
 
 ## TODO
 
 * Create new A/AAAA record when not found
 * Support multiple records (home, dyn, ...)
 * Logging, Reporting
-* Build image with GitHub Actions
 
 ## Usage
 

@@ -1,0 +1,38 @@
+name: Build Docker image
+
+on:
+  push:
+    branches:
+    - master
+    paths:
+    - '.github/workflows/build.yml' ## This file
+    - '**.json'
+    - '**.ts'
+    - 'Dockerfile'
+    - '!.vscode/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    env:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Get short SHA
+      id: slug
+      run: |
+        echo "::set-output name=sha7::$(echo ${GITHUB_SHA} | cut -c1-7)"
+        echo "::set-output name=sref::$(echo ${GITHUB_REF#refs/heads/} | tr / -)"
+
+    - name: Build
+      uses: whoan/docker-build-with-cache-action@v5
+      with:
+        image_name: hetzner-dyndns
+        image_tag: latest,prod-${{ steps.slug.outputs.sha7 }}
+        username: riker09
+        registry: ghcr.io
+        password: "${{ secrets.GHCR_TOKEN }}"

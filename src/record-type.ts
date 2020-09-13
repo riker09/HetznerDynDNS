@@ -1,0 +1,16 @@
+export enum RecordType {
+  A = "A",
+  AAAA = "AAAA",
+  NS = "NS",
+  MX = "MX",
+  CNAME = "CNAME",
+  RP = "RP",
+  TXT = "TXT",
+  SOA = "SOA",
+  HINFO = "HINFO",
+  SRV = "SRV",
+  DANE = "DANE",
+  TLSA = "TLSA",
+  DS = "DS",
+  CAA = "CA",
+}

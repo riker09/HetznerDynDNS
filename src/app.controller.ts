@@ -1,9 +1,8 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { RecordService } from './record.service';
-import { IRecord } from './irecord.interface';
 import { HomeService } from './home.service';
-import { FritzBoxDnyDnsQueryParams } from './fritz-box-dyndns-query-params';
+import { FritzBoxDyndnsQueryParams } from './interfaces';
 
 @Controller()
 export class AppController {
@@ -24,7 +23,7 @@ export class AppController {
   }
 
   @Get('/update')
-  updateHomeZone(@Query() query: FritzBoxDnyDnsQueryParams) {
+  updateHomeZone(@Query() query: FritzBoxDyndnsQueryParams) {
     return this.homeService.UpdateHomeZone(query);
   }
 }

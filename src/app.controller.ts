@@ -12,9 +12,9 @@ export class AppController {
     private readonly recordService: RecordService
   ) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('/health')
+  async getHealth() {
+    return this.appService.getHealth();
   }
 
   @Get(`/records`)

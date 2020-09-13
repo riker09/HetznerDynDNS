@@ -23,4 +23,7 @@ COPY --from=build /app/dist ./dist
 
 EXPOSE 3000
 
+HEALTHCHECK --start-period=5s \
+    CMD wget --spider -q 127.0.0.1:3000/health || exit 1
+
 CMD ["node", "dist/main.js"]

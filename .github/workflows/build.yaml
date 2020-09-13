@@ -31,7 +31,7 @@ jobs:
 
     - name: Build
       env:
-        IMAGE: ghcr.io/${{ env.GITHUB_ACTOR }}/${{ env.IMAGE_NAME }}
+        IMAGE: ghcr.io/${{ github.actor }}/${{ env.IMAGE_NAME }}
       run: |
         echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
         docker pull ghcr.io/${GITHUB_ACTOR}/${IMAGE_NAME}:latest
